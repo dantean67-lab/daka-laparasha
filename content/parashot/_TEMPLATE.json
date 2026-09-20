@@ -1,0 +1,51 @@
+{
+  "slug": "replace-me-5787",
+  "published": false,
+  "episodeType": "parasha",
+  "parashaName": "TODO",
+  "parashaNameWithNikud": "TODO",
+  "chumash": "בראשית",
+  "chumashOrder": 1,
+  "parashaOrder": 1,
+  "specialShabbat": null,
+  "hebrewDate": "TODO",
+  "gregorianDate": "2000-01-01",
+  "youtubeId": "TODO",
+  "title": "TODO title",
+  "teaser": "TODO teaser",
+  "torahReading": "TODO",
+  "haftarah": "TODO",
+  "script": [
+    {
+      "type": "opening",
+      "text": "TODO opening"
+    },
+    {
+      "type": "paragraph",
+      "text": "TODO paragraph"
+    },
+    {
+      "type": "quote",
+      "text": "TODO quote"
+    },
+    {
+      "type": "message",
+      "text": "TODO message"
+    },
+    {
+      "type": "closing",
+      "text": "TODO closing"
+    }
+  ],
+  "sources": [
+    {
+      "citation": "TODO citation",
+      "quote": "TODO quote",
+      "note": "",
+      "link": ""
+    }
+  ],
+  "calendarNotes": [
+    "TODO"
+  ]
+}

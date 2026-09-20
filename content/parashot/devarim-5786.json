@@ -1,0 +1,51 @@
+{
+  "slug": "devarim-5786",
+  "published": false,
+  "episodeType": "parasha",
+  "parashaName": "דברים",
+  "parashaNameWithNikud": "דְּבָרִים",
+  "chumash": "דברים",
+  "chumashOrder": 5,
+  "parashaOrder": 44,
+  "specialShabbat": "שבת חזון",
+  "hebrewDate": "ד' אב תשפ\"ו",
+  "gregorianDate": "2026-07-18",
+  "youtubeId": "TODO",
+  "title": "TODO title",
+  "teaser": "TODO teaser",
+  "torahReading": "דברים א, א – ג, כב",
+  "haftarah": "TODO",
+  "script": [
+    {
+      "type": "opening",
+      "text": "TODO opening"
+    },
+    {
+      "type": "paragraph",
+      "text": "TODO paragraph"
+    },
+    {
+      "type": "quote",
+      "text": "TODO quote"
+    },
+    {
+      "type": "message",
+      "text": "TODO message"
+    },
+    {
+      "type": "closing",
+      "text": "TODO closing"
+    }
+  ],
+  "sources": [
+    {
+      "citation": "TODO citation",
+      "quote": "TODO quote",
+      "note": "",
+      "link": ""
+    }
+  ],
+  "calendarNotes": [
+    "TODO"
+  ]
+}

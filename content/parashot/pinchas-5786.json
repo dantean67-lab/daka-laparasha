@@ -1,0 +1,51 @@
+{
+  "slug": "pinchas-5786",
+  "published": false,
+  "episodeType": "parasha",
+  "parashaName": "פנחס",
+  "parashaNameWithNikud": "פִּינְחָס",
+  "chumash": "במדבר",
+  "chumashOrder": 4,
+  "parashaOrder": 41,
+  "specialShabbat": null,
+  "hebrewDate": "י\"ט תמוז תשפ\"ו",
+  "gregorianDate": "2026-07-04",
+  "youtubeId": "TODO",
+  "title": "TODO title",
+  "teaser": "TODO teaser",
+  "torahReading": "במדבר כה, י – ל, א",
+  "haftarah": "TODO",
+  "script": [
+    {
+      "type": "opening",
+      "text": "TODO opening"
+    },
+    {
+      "type": "paragraph",
+      "text": "TODO paragraph"
+    },
+    {
+      "type": "quote",
+      "text": "TODO quote"
+    },
+    {
+      "type": "message",
+      "text": "TODO message"
+    },
+    {
+      "type": "closing",
+      "text": "TODO closing"
+    }
+  ],
+  "sources": [
+    {
+      "citation": "TODO citation",
+      "quote": "TODO quote",
+      "note": "",
+      "link": ""
+    }
+  ],
+  "calendarNotes": [
+    "TODO"
+  ]
+}

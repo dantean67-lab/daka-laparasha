@@ -1,0 +1,51 @@
+{
+  "slug": "ki-tavo-5786",
+  "published": false,
+  "episodeType": "parasha",
+  "parashaName": "כי תבוא",
+  "parashaNameWithNikud": "כִּי תָבוֹא",
+  "chumash": "דברים",
+  "chumashOrder": 5,
+  "parashaOrder": 50,
+  "specialShabbat": null,
+  "hebrewDate": "ט\"ז אלול תשפ\"ו",
+  "gregorianDate": "2026-08-29",
+  "youtubeId": "TODO",
+  "title": "TODO title",
+  "teaser": "TODO teaser",
+  "torahReading": "דברים כו, א – כט, ח",
+  "haftarah": "TODO",
+  "script": [
+    {
+      "type": "opening",
+      "text": "TODO opening"
+    },
+    {
+      "type": "paragraph",
+      "text": "TODO paragraph"
+    },
+    {
+      "type": "quote",
+      "text": "TODO quote"
+    },
+    {
+      "type": "message",
+      "text": "TODO message"
+    },
+    {
+      "type": "closing",
+      "text": "TODO closing"
+    }
+  ],
+  "sources": [
+    {
+      "citation": "TODO citation",
+      "quote": "TODO quote",
+      "note": "",
+      "link": ""
+    }
+  ],
+  "calendarNotes": [
+    "TODO"
+  ]
+}

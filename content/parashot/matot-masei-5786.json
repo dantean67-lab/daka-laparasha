@@ -1,0 +1,51 @@
+{
+  "slug": "matot-masei-5786",
+  "published": false,
+  "episodeType": "parasha",
+  "parashaName": "מטות־מסעי",
+  "parashaNameWithNikud": "מַטּוֹת־מַסְעֵי",
+  "chumash": "במדבר",
+  "chumashOrder": 4,
+  "parashaOrder": 42,
+  "specialShabbat": null,
+  "hebrewDate": "כ\"ו תמוז תשפ\"ו",
+  "gregorianDate": "2026-07-11",
+  "youtubeId": "TODO",
+  "title": "TODO title",
+  "teaser": "TODO teaser",
+  "torahReading": "במדבר ל, ב – לו, יג",
+  "haftarah": "TODO",
+  "script": [
+    {
+      "type": "opening",
+      "text": "TODO opening"
+    },
+    {
+      "type": "paragraph",
+      "text": "TODO paragraph"
+    },
+    {
+      "type": "quote",
+      "text": "TODO quote"
+    },
+    {
+      "type": "message",
+      "text": "TODO message"
+    },
+    {
+      "type": "closing",
+      "text": "TODO closing"
+    }
+  ],
+  "sources": [
+    {
+      "citation": "TODO citation",
+      "quote": "TODO quote",
+      "note": "",
+      "link": ""
+    }
+  ],
+  "calendarNotes": [
+    "TODO"
+  ]
+}

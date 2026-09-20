@@ -1,0 +1,51 @@
+{
+  "slug": "vaetchanan-5786",
+  "published": false,
+  "episodeType": "parasha",
+  "parashaName": "ואתחנן",
+  "parashaNameWithNikud": "וָאֶתְחַנַּן",
+  "chumash": "דברים",
+  "chumashOrder": 5,
+  "parashaOrder": 45,
+  "specialShabbat": "שבת נחמו",
+  "hebrewDate": "י\"א אב תשפ\"ו",
+  "gregorianDate": "2026-07-25",
+  "youtubeId": "TODO",
+  "title": "TODO title",
+  "teaser": "TODO teaser",
+  "torahReading": "דברים ג, כג – ז, יא",
+  "haftarah": "TODO",
+  "script": [
+    {
+      "type": "opening",
+      "text": "TODO opening"
+    },
+    {
+      "type": "paragraph",
+      "text": "TODO paragraph"
+    },
+    {
+      "type": "quote",
+      "text": "TODO quote"
+    },
+    {
+      "type": "message",
+      "text": "TODO message"
+    },
+    {
+      "type": "closing",
+      "text": "TODO closing"
+    }
+  ],
+  "sources": [
+    {
+      "citation": "TODO citation",
+      "quote": "TODO quote",
+      "note": "",
+      "link": ""
+    }
+  ],
+  "calendarNotes": [
+    "TODO"
+  ]
+}

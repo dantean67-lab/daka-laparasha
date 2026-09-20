@@ -1,0 +1,51 @@
+{
+  "slug": "rosh-hashana-5787",
+  "published": false,
+  "episodeType": "moed",
+  "parashaName": "ראש השנה",
+  "parashaNameWithNikud": "רֹאשׁ הַשָּׁנָה",
+  "chumash": null,
+  "chumashOrder": null,
+  "parashaOrder": null,
+  "specialShabbat": null,
+  "hebrewDate": "א' תשרי תשפ\"ז",
+  "gregorianDate": "2026-09-12",
+  "youtubeId": "TODO",
+  "title": "TODO title",
+  "teaser": "TODO teaser",
+  "torahReading": null,
+  "haftarah": null,
+  "script": [
+    {
+      "type": "opening",
+      "text": "TODO opening"
+    },
+    {
+      "type": "paragraph",
+      "text": "TODO paragraph"
+    },
+    {
+      "type": "quote",
+      "text": "TODO quote"
+    },
+    {
+      "type": "message",
+      "text": "TODO message"
+    },
+    {
+      "type": "closing",
+      "text": "TODO closing"
+    }
+  ],
+  "sources": [
+    {
+      "citation": "TODO citation",
+      "quote": "TODO quote",
+      "note": "",
+      "link": ""
+    }
+  ],
+  "calendarNotes": [
+    "TODO"
+  ]
+}

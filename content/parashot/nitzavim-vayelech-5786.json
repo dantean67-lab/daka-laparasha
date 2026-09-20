@@ -1,0 +1,51 @@
+{
+  "slug": "nitzavim-vayelech-5786",
+  "published": false,
+  "episodeType": "parasha",
+  "parashaName": "נצבים־וילך",
+  "parashaNameWithNikud": "נִצָּבִים־וַיֵּלֶךְ",
+  "chumash": "דברים",
+  "chumashOrder": 5,
+  "parashaOrder": 51,
+  "specialShabbat": null,
+  "hebrewDate": "כ\"ג אלול תשפ\"ו",
+  "gregorianDate": "2026-09-05",
+  "youtubeId": "TODO",
+  "title": "TODO title",
+  "teaser": "TODO teaser",
+  "torahReading": "דברים כט, ט – לא, ל",
+  "haftarah": "TODO",
+  "script": [
+    {
+      "type": "opening",
+      "text": "TODO opening"
+    },
+    {
+      "type": "paragraph",
+      "text": "TODO paragraph"
+    },
+    {
+      "type": "quote",
+      "text": "TODO quote"
+    },
+    {
+      "type": "message",
+      "text": "TODO message"
+    },
+    {
+      "type": "closing",
+      "text": "TODO closing"
+    }
+  ],
+  "sources": [
+    {
+      "citation": "TODO citation",
+      "quote": "TODO quote",
+      "note": "",
+      "link": ""
+    }
+  ],
+  "calendarNotes": [
+    "TODO"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "slug": "shoftim-5786",
+  "published": false,
+  "episodeType": "parasha",
+  "parashaName": "שופטים",
+  "parashaNameWithNikud": "שֹׁפְטִים",
+  "chumash": "דברים",
+  "chumashOrder": 5,
+  "parashaOrder": 48,
+  "specialShabbat": null,
+  "hebrewDate": "ב' אלול תשפ\"ו",
+  "gregorianDate": "2026-08-15",
+  "youtubeId": "TODO",
+  "title": "TODO title",
+  "teaser": "TODO teaser",
+  "torahReading": "דברים טז, יח – כא, ט",
+  "haftarah": "TODO",
+  "script": [
+    {
+      "type": "opening",
+      "text": "TODO opening"
+    },
+    {
+      "type": "paragraph",
+      "text": "TODO paragraph"
+    },
+    {
+      "type": "quote",
+      "text": "TODO quote"
+    },
+    {
+      "type": "message",
+      "text": "TODO message"
+    },
+    {
+      "type": "closing",
+      "text": "TODO closing"
+    }
+  ],
+  "sources": [
+    {
+      "citation": "TODO citation",
+      "quote": "TODO quote",
+      "note": "",
+      "link": ""
+    }
+  ],
+  "calendarNotes": [
+    "TODO"
+  ]
+}

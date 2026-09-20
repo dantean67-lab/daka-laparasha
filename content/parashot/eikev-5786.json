@@ -1,0 +1,51 @@
+{
+  "slug": "eikev-5786",
+  "published": false,
+  "episodeType": "parasha",
+  "parashaName": "עקב",
+  "parashaNameWithNikud": "עֵקֶב",
+  "chumash": "דברים",
+  "chumashOrder": 5,
+  "parashaOrder": 46,
+  "specialShabbat": null,
+  "hebrewDate": "י\"ח אב תשפ\"ו",
+  "gregorianDate": "2026-08-01",
+  "youtubeId": "TODO",
+  "title": "TODO title",
+  "teaser": "TODO teaser",
+  "torahReading": "דברים ז, יב – יא, כה",
+  "haftarah": "TODO",
+  "script": [
+    {
+      "type": "opening",
+      "text": "TODO opening"
+    },
+    {
+      "type": "paragraph",
+      "text": "TODO paragraph"
+    },
+    {
+      "type": "quote",
+      "text": "TODO quote"
+    },
+    {
+      "type": "message",
+      "text": "TODO message"
+    },
+    {
+      "type": "closing",
+      "text": "TODO closing"
+    }
+  ],
+  "sources": [
+    {
+      "citation": "TODO citation",
+      "quote": "TODO quote",
+      "note": "",
+      "link": ""
+    }
+  ],
+  "calendarNotes": [
+    "TODO"
+  ]
+}

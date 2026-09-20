@@ -1,0 +1,51 @@
+{
+  "slug": "reeh-5786",
+  "published": false,
+  "episodeType": "parasha",
+  "parashaName": "ראה",
+  "parashaNameWithNikud": "רְאֵה",
+  "chumash": "דברים",
+  "chumashOrder": 5,
+  "parashaOrder": 47,
+  "specialShabbat": null,
+  "hebrewDate": "כ\"ה אב תשפ\"ו",
+  "gregorianDate": "2026-08-08",
+  "youtubeId": "TODO",
+  "title": "TODO title",
+  "teaser": "TODO teaser",
+  "torahReading": "דברים יא, כו – טז, יז",
+  "haftarah": "TODO",
+  "script": [
+    {
+      "type": "opening",
+      "text": "TODO opening"
+    },
+    {
+      "type": "paragraph",
+      "text": "TODO paragraph"
+    },
+    {
+      "type": "quote",
+      "text": "TODO quote"
+    },
+    {
+      "type": "message",
+      "text": "TODO message"
+    },
+    {
+      "type": "closing",
+      "text": "TODO closing"
+    }
+  ],
+  "sources": [
+    {
+      "citation": "TODO citation",
+      "quote": "TODO quote",
+      "note": "",
+      "link": ""
+    }
+  ],
+  "calendarNotes": [
+    "TODO"
+  ]
+}
