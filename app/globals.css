@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   DESIGN TOKENS
+   Light values are the default. Dark values apply when the phone/computer
+   prefers dark AND the visitor has not forced light; they also apply when
+   the visitor forced dark with the toggle (data-theme="dark" on <html>).
+   Components never use dark: variants; switching theme only swaps these.
+   ------------------------------------------------------------------ */
+:root {
+  --bg: #faf8f4;
+  --card: #ffffff;
+  --text: #26211c;
+  --muted: #8a8378;
+  --line: #e8e2d8;
+  --accent: #1e3a5f;
+  --gold: #b8934a;
+  --on-accent: #ffffff; /* text colour placed on top of --accent */
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1c1a17;
+    --card: #26231f;
+    --text: #f0ece5;
+    --muted: #9a9284;
+    --line: #3a362f;
+    --accent: #8fb3d9;
+    --gold: #c9a862;
+    --on-accent: #1c1a17;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #1c1a17;
+  --card: #26231f;
+  --text: #f0ece5;
+  --muted: #9a9284;
+  --line: #3a362f;
+  --accent: #8fb3d9;
+  --gold: #c9a862;
+  --on-accent: #1c1a17;
+  color-scheme: dark;
+}
+
+/* Expose the tokens to Tailwind: bg-bg, bg-card, text-text, text-muted,
+   border-line, text-accent, bg-accent, text-on-accent, border-gold ... */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-gold: var(--gold);
+  --color-on-accent: var(--on-accent);
+
+  /* Frank Ruhl Libre: all vocalized (nikud) reading text.
+     Heebo: interface chrome only (nav, buttons, labels). Never nikud. */
+  --font-script: var(--font-frank), "Times New Roman", serif;
+  --font-ui: var(--font-heebo), system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ------------------------------------------------------------------
+   BASE: Hebrew with nikud needs generous line-height and NO letter-spacing
+   ------------------------------------------------------------------ */
+@layer base {
+  html {
+    background-color: var(--bg);
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem; /* keeps anchors clear of the sticky header */
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-script), "Times New Roman", serif;
+    font-size: 1.3125rem; /* 21px */
+    line-height: 2.15;
+    hyphens: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Letter-spacing breaks nikud positioning. Off everywhere, always. */
+  *,
+  ::before,
+  ::after {
+    letter-spacing: 0;
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: 1.7; /* headings may carry nikud too */
+    font-weight: 700;
+  }
+
+  a {
+    text-underline-offset: 0.25em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   SCRIPT BLOCKS (the vocalized script; rendered by components/ScriptBlock)
+   ------------------------------------------------------------------ */
+@layer components {
+  .script-paragraph {
+    font-size: 1.3125rem; /* 21px */
+    line-height: 2.15;
+    text-wrap: pretty;
+  }
+
+  .script-bold {
+    font-weight: 700; /* "opening" and "closing" lines */
+  }
+
+  .script-quote {
+    font-size: 1.4375rem; /* 23px: slightly larger than the paragraph */
+    line-height: 2.2;
+    margin-inline-start: 1rem; /* indent from the start (right) side */
+    padding-inline-start: 1.125rem;
+    border-inline-start: 3px solid var(--gold); /* gold bar on the right in RTL */
+  }
+
+  .script-message {
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  /* Theme toggle: show the label/icon that matches the CURRENT effective theme */
+  .when-light,
+  .when-dark {
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .when-light {
+    display: inline-flex;
+  }
+  .when-dark {
+    display: none;
+  }
+  :root[data-theme="dark"] .when-light {
+    display: none;
+  }
+  :root[data-theme="dark"] .when-dark {
+    display: inline-flex;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .when-light {
+    display: none;
+  }
+  :root:not([data-theme="light"]) .when-dark {
+    display: inline-flex;
+  }
+}
