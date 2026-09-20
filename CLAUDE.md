@@ -434,3 +434,78 @@ Commit and push to main.
 
 Then STOP. End with a short summary in simple English — my terminal cannot
 display Hebrew — and a numbered checklist of what to look at on my phone.
+
+
+=== AMENDMENTS — added after a review. Where anything above conflicts, these win. ===
+
+A1. DRAFTS
+- Add a required boolean field "published" to the schema and to both templates.
+- published: false = draft. A draft page is still built at its URL so I can preview it, but it gets <meta name="robots" content="noindex">, shows a visible "טיוטה" banner at the top, and hides the video if youtubeId is not a real ID. Drafts are left out of everything else: the homepage and the current-episode rule, the archive and its search, prev/next, and the sitemap.
+- Validation is relaxed for drafts and strict for published episodes: youtubeId must match ^[A-Za-z0-9_-]{11}$, script and sources must not be empty, no string in the file may contain "TODO", and no script line may consist only of "..." (the placeholder style of section 4).
+- In drafts: title, teaser, youtubeId, script, sources and calendarNotes are placeholders containing "TODO". The names, episodeType and every value from the A2 table are real.
+- Initial state: haazinu-5787 is published: true. The other eleven are published: false.
+- haazinu-5787: youtubeId is 6Fl9njt76gY (https://www.youtube.com/shorts/6Fl9njt76gY), and its full script is in A10.
+- If no episode is published, the homepage shows the site title, the description and the archive link, and nothing breaks.
+
+A2. EXACT METADATA — use these values. Do not compute dates or orders yourself.
+Israeli reading schedule. For a combined parasha, parashaOrder is the first one's.
+haftarah: "TODO" in the nine parasha drafts; null in the two moed files.
+
+slug                   | chumash | chumashOrder | parashaOrder | specialShabbat | hebrewDate     | gregorianDate | torahReading
+pinchas-5786           | במדבר   | 4 | 41 | null     | י"ט תמוז תשפ"ו | 2026-07-04 | במדבר כה, י – ל, א
+matot-masei-5786       | במדבר   | 4 | 42 | null     | כ"ו תמוז תשפ"ו | 2026-07-11 | במדבר ל, ב – לו, יג
+devarim-5786           | דברים   | 5 | 44 | שבת חזון | ד' אב תשפ"ו    | 2026-07-18 | דברים א, א – ג, כב
+vaetchanan-5786        | דברים   | 5 | 45 | שבת נחמו | י"א אב תשפ"ו   | 2026-07-25 | דברים ג, כג – ז, יא
+eikev-5786             | דברים   | 5 | 46 | null     | י"ח אב תשפ"ו   | 2026-08-01 | דברים ז, יב – יא, כה
+reeh-5786              | דברים   | 5 | 47 | null     | כ"ה אב תשפ"ו   | 2026-08-08 | דברים יא, כו – טז, יז
+shoftim-5786           | דברים   | 5 | 48 | null     | ב' אלול תשפ"ו  | 2026-08-15 | דברים טז, יח – כא, ט
+ki-tavo-5786           | דברים   | 5 | 50 | null     | ט"ז אלול תשפ"ו | 2026-08-29 | דברים כו, א – כט, ח
+nitzavim-vayelech-5786 | דברים   | 5 | 51 | null     | כ"ג אלול תשפ"ו | 2026-09-05 | דברים כט, ט – לא, ל
+haazinu-5787           | as written in section 4
+rosh-hashana-5787      | moed: hebrewDate א' תשרי תשפ"ז, gregorianDate 2026-09-12, all parasha-only fields null
+erev-yom-kippur-5787   | moed: hebrewDate ט' תשרי תשפ"ז, gregorianDate 2026-09-20, all parasha-only fields null
+
+A3. FILES AND LOADER
+- "Exactly these twelve files" means twelve episode files. Also create two templates: _TEMPLATE.json (parasha shape) and _TEMPLATE-moed.json (moed shape), both published: false.
+- The content loader ignores every file whose name starts with "_".
+- The build fails with a clear message (the file name, and for broken JSON the line number) if a file is not valid JSON, fails validation, or is not named {slug}.json.
+
+A4. TITLES
+- Moed pages: <title> is "{parashaName} | דבר תורה קצר | דקה לפרשה". Never put "פרשת" before a moed name anywhere.
+- Episode page: show the "title" field as a subtitle directly under the name.
+
+A5. PRINT
+- The "להדפסה לשבת" button opens /parasha/[slug]/print?auto=1 in a new tab. With ?auto=1 the page waits for document.fonts.ready (so the nikud prints in Frank Ruhl Libre, not a fallback font), calls window.print() once, then removes ?auto=1 from the address bar with history.replaceState, so a reload or a shared link does not trigger it again.
+- The print page also shows one screen-only "הדפסה" button, hidden in @media print. Nothing else is added.
+- Print pages get robots noindex, a canonical pointing to the episode page, and are left out of the sitemap.
+
+A6. READABILITY
+- Light --muted is #6f685e, not #8a8378. The original is about 3.5:1 against --bg; body text needs at least 4.5:1, and many readers are older.
+- --gold is for borders and decoration only, never for text.
+
+A7. SMALL FIXES
+- Archive search: normalize both the query and the data before matching — remove nikud and cantillation marks, remove quote marks (" ' ״ ׳), treat maqaf and hyphens as spaces — so typing רשי finds רש"י.
+- Video thumbnail: it must look sharp on a high-density phone screen. In hqdefault.jpg a vertical Short is pillarboxed and only about 200px wide, so stretching it to fill the 9:16 box looks blurry. With the real haazinu ID, check which larger thumbnails YouTube actually serves for Shorts (YouTube's own page for this Short points to maxresdefault.jpg, so start there), use the sharpest one, and fall back to hqdefault.
+- In haazinu-5787.json, set haftarah to exactly: הושע יד, ב – י (ומוסיפים יואל או מיכה, לפי המנהג)
+
+A8. README — WEEKLY FLOW
+- The "add a new episode" steps use the GitHub website only (no terminal, no git commands) and must work from a phone browser: open the repo, go into content/parashot, Add file, Create new file, type the file name, paste, Commit changes, then wait about a minute for Vercel.
+- Explain that a double quote inside a JSON text value must be written as \" (for example רש\"י), and that a broken file only fails the build — the live site stays as it was.
+
+A9. STEP ORDER AND FINISH
+- I can only check on my phone once the site is on Vercel. So at the end of step 1, after pushing, give me click-by-click instructions to import the repo into Vercel (this is step 2), and write the phone checklist for the resulting vercel.app address. If that address contains random letters, include how to change it to a clean one in Vercel before I share it anywhere.
+- In step 11, give me click-by-click instructions to verify the site in Google Search Console (free, HTML-tag method; the tag's value lives in lib/site.ts) and to submit /sitemap.xml.
+
+A10. HAAZINU-5787 SCRIPT — replaces the placeholder script in section 4.
+Ten lines, in this order. Each line is: type | text. Copy the text character-for-character — never retype, re-vocalize or "fix" it; only escape double quotes when writing the JSON. The "..." inside the quote line is part of the text (an abbreviated verse), not a placeholder.
+
+opening | שַׁבָּת שָׁלוֹם לְכֻלָּם!
+paragraph | הַשַּׁבָּת נִקְרֵאת "שַׁבָּת שׁוּבָה" – הַשַּׁבָּת הַיְּחִידָה שֶׁבֵּין רֹאשׁ הַשָּׁנָה לְיוֹם כִּיפּוּר, עַל שֵׁם פְּתִיחַת הַהַפְטָרָה: "שׁוּבָה יִשְׂרָאֵל עַד ה' אֱלֹקֶיךָ".
+paragraph | וּבְפָרָשַׁת הַאֲזִינוּ מִסְתַּתֶּרֶת תְּמוּנָה אַחַת שֶׁאוֹמֶרֶת הַכֹּל:
+quote | "כְּנֶשֶׁר יָעִיר קִנּוֹ... יִשָּׂאֵהוּ עַל אֶבְרָתוֹ".
+paragraph | רַשִׁ"י מְגַלֶּה מָה מְיֻחָד בַּנֶּשֶׁר: כָּל הָעוֹפוֹת נוֹשְׂאִים אֶת גּוֹזָלֵיהֶם בֵּין רַגְלֵיהֶם – כִּי הֵם פּוֹחֲדִים מֵעוֹף שֶׁעָף מֵעֲלֵיהֶם. אֲבָל הַנֶּשֶׁר עָף גָּבוֹהַּ מִכֻּלָּם. אֵין אַף אֶחָד מֵעָלָיו. הוּא מְפַחֵד רַק מִדָּבָר אֶחָד: מֵחֵץ שֶׁיָּבוֹא מִלְּמַטָּה.
+paragraph | וְאָז הוּא עוֹשֶׂה מַשֶּׁהוּ מַדְהִים: הוּא שָׂם אֶת הַגּוֹזָל עַל הַכְּנָפַיִם. וְאוֹמֵר: "מוּטָב שֶׁיִּכָּנֵס הַחֵץ בִּי – וְלֹא בִּבְנִי".
+paragraph | וְרַשִׁ"י מוֹסִיף: כָּךְ בְּדִיּוּק נָשָׂא אוֹתָנוּ הַקָּדוֹשׁ בָּרוּךְ הוּא בִּיצִיאַת מִצְרַיִם – "וָאֶשָּׂא אֶתְכֶם עַל כַּנְפֵי נְשָׁרִים".
+message | וְכָאן הַמֶּסֶר שֶׁלָּנוּ: אֲנַחְנוּ בְּתוֹךְ עֲשֶׂרֶת יְמֵי תְּשׁוּבָה, וְקַל מְאוֹד לְהַרְגִּישׁ רַק נִשְׁפָּטִים וּמְפֻחָדִים. הַפָּרָשָׁה מַזְכִּירָה לָנוּ מִי הַשּׁוֹפֵט: זֶה שֶׁשָּׂם אוֹתָנוּ עַל הַכְּנָפַיִם שֶׁלּוֹ, וְקִבֵּל אֶת הַחֵץ בִּמְקוֹמֵנוּ.
+paragraph | יוֹם כִּיפּוּר נִכְנָס כְּבָר בְּיוֹם רִאשׁוֹן בָּעֶרֶב. עַד אָז – בַּקָּשַׁת סְלִיחָה אַחַת, מֵאָדָם אֶחָד. זֶה הַצַּעַד חֲזָרָה אֶל הַכְּנָפַיִם.
+closing | שַׁבָּת שָׁלוֹם וּגְמַר חֲתִימָה טוֹבָה!
