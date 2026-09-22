@@ -256,3 +256,47 @@
     border-color: var(--gold);
   }
 }
+
+/* ------------------------------------------------------------------
+   PRINT PAGE (/parasha/[slug]/print) — a completely clean, black-on-white
+   page, on screen AND on paper, regardless of the site's active theme.
+   Never uses the --bg/--text/--card/--gold tokens, which follow dark mode.
+   ------------------------------------------------------------------ */
+@layer components {
+  .print-page {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  /* ScriptBlock's "quote" and "message" styling normally leans on theme tokens
+     (gold border, accent colour); on this page both are plain black. */
+  .print-page .script-quote {
+    border-inline-start-color: #000000;
+  }
+  .print-page .script-message {
+    color: inherit;
+  }
+}
+
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  html,
+  body {
+    background: #ffffff !important;
+  }
+  .print-page {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+  /* A little smaller than the on-screen minimum, so a normal episode fits one A4 page;
+     line-height stays >= 2.0 so nikud never collides with the line above it. */
+  .print-page .script-paragraph {
+    font-size: 12.5pt;
+    line-height: 2;
+  }
+  .print-page .script-quote {
+    font-size: 13pt;
+    line-height: 2;
+  }
+}
