@@ -279,7 +279,7 @@
 
 @media print {
   @page {
-    margin: 14mm;
+    margin: 15mm;
   }
   html,
   body {
@@ -289,14 +289,27 @@
     background-color: #ffffff !important;
     color: #000000 !important;
   }
-  /* A little smaller than the on-screen minimum, so a normal episode fits one A4 page;
-     line-height stays >= 2.0 so nikud never collides with the line above it. */
+  /* Smaller than the on-screen minimum, so a normal episode fits one A4 page; line-height
+     never drops below 1.9 for vocalized (nikud) text, so marks never collide with the line
+     above. 12pt is the target, never below the 11pt floor. */
   .print-page .script-paragraph {
-    font-size: 12.5pt;
-    line-height: 2;
+    font-size: 12pt;
+    line-height: 1.9;
   }
   .print-page .script-quote {
-    font-size: 13pt;
-    line-height: 2;
+    font-size: 12.5pt;
+    line-height: 1.9;
+    margin-inline-start: 0.75rem;
+    padding-inline-start: 0.875rem;
+  }
+  /* Each source (citation + quote + note) stays together, and the "המקורות" heading is
+     never left stranded alone at the bottom of a page, away from its list. */
+  .print-page h2 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  .print-page li {
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 }
