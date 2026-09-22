@@ -33,3 +33,15 @@ export function getPublishedEpisodes(): Episode[] {
 export function getEpisodeBySlug(slug: string): Episode | undefined {
   return getAllEpisodes().find((episode) => episode.slug === slug);
 }
+
+/**
+ * The published episode just before and just after this one, in date order
+ * (NOT parasha order). Works for drafts too: a draft's neighbours are the published
+ * episodes around its date, but a draft is never anyone's neighbour.
+ */
+export function getNeighbors(episode: Episode): { previous: Episode | null; next: Episode | null } {
+  const published = getPublishedEpisodes();
+  const before = published.filter((e) => byDateThenSlug(e, episode) < 0);
+  const after = published.filter((e) => byDateThenSlug(e, episode) > 0);
+  return { previous: before.at(-1) ?? null, next: after[0] ?? null };
+}
