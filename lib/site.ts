@@ -53,5 +53,5 @@ export function absoluteUrl(path = "/"): string {
 
 export const SITE_NAME = "דקה לפרשה";
 export const SITE_DESCRIPTION =
-  "דקה אחת של תורה בכל שבוע: דבר תורה קצר על פרשת השבוע, עם מקורות מדויקים מראשונים ומחז\"ל.";
+  "דקה אחת של תורה בכל שבוע: דבר תורה קצר על פרשת השבוע, ממקורות מדויקים: רש\"י, גמרא, מדרש ומפרשי התורה.";
 export const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@DakaLaParasha";

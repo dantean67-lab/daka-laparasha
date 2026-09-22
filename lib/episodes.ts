@@ -45,3 +45,28 @@ export function getNeighbors(episode: Episode): { previous: Episode | null; next
   const after = published.filter((e) => byDateThenSlug(e, episode) > 0);
   return { previous: before.at(-1) ?? null, next: after[0] ?? null };
 }
+
+/** Today's date in Asia/Jerusalem as YYYY-MM-DD, never the server's own (UTC) date. */
+function todayInJerusalem(): string {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Jerusalem" }).format(new Date());
+}
+
+/**
+ * The homepage's current episode: the published episode with the earliest gregorianDate
+ * that is still >= today, or - if every published episode's date has passed - the most
+ * recent one. A video goes up before the date it is about, so this is the one people
+ * are meant to be reading/printing right now. null when nothing is published yet.
+ */
+export function getCurrentEpisode(): Episode | null {
+  const published = getPublishedEpisodes();
+  if (published.length === 0) return null;
+  const today = todayInJerusalem();
+  return published.find((e) => e.gregorianDate >= today) ?? published.at(-1)!;
+}
+
+/** Up to `limit` published episodes right before `current`, most recent first. */
+export function getPreviousEpisodes(current: Episode, limit = 4): Episode[] {
+  const published = getPublishedEpisodes();
+  const before = published.filter((e) => byDateThenSlug(e, current) < 0);
+  return before.slice(-limit).reverse();
+}

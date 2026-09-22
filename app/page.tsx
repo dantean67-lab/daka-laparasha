@@ -1,67 +1,90 @@
-import Ltr from "@/components/Ltr";
+import Link from "next/link";
+import EpisodeSources from "@/components/EpisodeSources";
+import MixedText from "@/components/MixedText";
 import ScriptBlock from "@/components/ScriptBlock";
-import ThemeToggle from "@/components/ThemeToggle";
+import VideoFacade from "@/components/VideoFacade";
+import { getCurrentEpisode, getPreviousEpisodes } from "@/lib/episodes";
+import { episodePath, hasRealVideo } from "@/lib/episode-format";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/site";
 
-// The homepage is rebuilt at most once an hour, so the "current episode" (step 6)
-// changes without a new deploy.
+// Rebuilt at most once an hour, so the current episode (the one with the earliest
+// gregorianDate that is still today or later, Asia/Jerusalem) changes without a new deploy.
 export const revalidate = 3600;
 
-function Label({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="font-ui mt-10 mb-3 text-sm text-muted" dir="ltr">
-      {children}
-    </p>
-  );
-}
-
-// TEMPORARY style specimen. Step 6 replaces this page with the real homepage.
 export default function HomePage() {
+  const current = getCurrentEpisode();
+  const previous = current ? getPreviousEpisodes(current) : [];
+
   return (
-    <main className="mx-auto max-w-[680px] px-5 py-10">
+    <main className="mx-auto max-w-[680px] px-5 py-8">
       <h1 className="text-4xl">{SITE_NAME}</h1>
-      <p className="mt-2">{SITE_DESCRIPTION}</p>
+      <p className="font-ui mt-2 text-lg text-muted">{SITE_DESCRIPTION}</p>
 
-      <Label>1. Card + script text (Frank Ruhl Libre, nikud)</Label>
-      <article className="rounded-[14px] border border-line bg-card p-5 sm:p-8">
-        <h2 className="text-3xl">הַאֲזִינוּ</h2>
-        <p className="font-ui text-base text-muted">
-          שבת שובה · <time dateTime="2026-09-19">ח' תשרי תשפ"ז</time>
-        </p>
+      {current && (
+        <article className="mt-8">
+          <header>
+            <h2 className="text-4xl leading-[1.5]">
+              <Link href={episodePath(current.slug)} className="text-text no-underline hover:text-accent">
+                {current.parashaNameWithNikud}
+              </Link>
+            </h2>
+            <p className="mt-1 text-[1.375rem] font-medium leading-[1.8]">
+              <MixedText>{current.title}</MixedText>
+            </p>
+            <p className="font-ui mt-2 flex flex-wrap items-center gap-y-2 text-base text-muted">
+              {current.specialShabbat && (
+                <>
+                  <span className="rounded-full border border-gold px-3 py-0.5 text-text">
+                    {current.specialShabbat}
+                  </span>
+                  {" · "}
+                </>
+              )}
+              <time dateTime={current.gregorianDate}>{current.hebrewDate}</time>
+            </p>
+          </header>
 
-        <div className="mt-6 space-y-4">
-          <ScriptBlock type="opening" text="שַׁבָּת שָׁלוֹם לְכֻלָּם!" />
-          <ScriptBlock type="paragraph" text="וְהַגְּמָרָא דּוֹרֶשֶׁת: כְּשֶׁהוּא חָל בְּחֹל" />
-          <ScriptBlock
-            type="paragraph"
-            text="כְּנֶשֶׁר יָעִיר קִנּוֹ עַל גּוֹזָלָיו יְרַחֵף יִפְרֹשׂ כְּנָפָיו יִקָּחֵהוּ יִשָּׂאֵהוּ עַל אֶבְרָתוֹ"
-          />
-          <ScriptBlock type="quote" text={'"כְּנֶשֶׁר יָעִיר קִנּוֹ... יִשָּׂאֵהוּ עַל אֶבְרָתוֹ"'} />
-          <ScriptBlock type="message" text="וְכָאן הַמֶּסֶר שֶׁלָּנוּ: ..." />
-          <ScriptBlock type="closing" text="שַׁבָּת שָׁלוֹם וּגְמַר חֲתִימָה טוֹבָה!" />
-        </div>
+          {hasRealVideo(current) && (
+            <div className="mt-8">
+              <VideoFacade videoId={current.youtubeId} title={current.title} />
+            </div>
+          )}
 
-        <p className="mt-6 border-t border-line pt-4">
-          יום כיפור: יום שני, <Ltr>21.9.2026</Ltr>
-        </p>
-      </article>
+          <div className="mt-8 space-y-5">
+            {current.script.map((line, i) => (
+              <ScriptBlock key={i} type={line.type} text={line.text} />
+            ))}
+          </div>
 
-      <Label>2. Buttons + theme toggle (Heebo)</Label>
-      <div className="font-ui flex flex-wrap gap-3">
-        <button
-          type="button"
-          className="min-h-11 cursor-pointer rounded-[14px] bg-accent px-5 text-base font-medium text-on-accent transition-opacity hover:opacity-90"
-        >
-          להדפסה לשבת
-        </button>
-        <button
-          type="button"
-          className="min-h-11 cursor-pointer rounded-[14px] border border-line bg-card px-5 text-base font-medium text-text transition-colors hover:border-gold"
-        >
-          שיתוף בוואטסאפ
-        </button>
-        <ThemeToggle showLabel />
-      </div>
+          <EpisodeSources sources={current.sources} headingLevel="h3" />
+        </article>
+      )}
+
+      {previous.length > 0 && (
+        <nav aria-labelledby="previous-heading" className="mt-14">
+          <h2 id="previous-heading" className="font-ui text-xl text-muted">
+            פרקים קודמים
+          </h2>
+          <ul className="m-0 mt-3 list-none space-y-2 p-0">
+            {previous.map((episode) => (
+              <li key={episode.slug}>
+                <Link href={episodePath(episode.slug)} className="nav-card flex items-center justify-between gap-3">
+                  <span className="text-lg font-bold">{episode.parashaNameWithNikud}</span>
+                  <time dateTime={episode.gregorianDate} className="font-ui text-sm text-muted">
+                    {episode.hebrewDate}
+                  </time>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+
+      <p className="font-ui mt-10 text-center">
+        <Link href="/archive" className="text-accent underline">
+          כל הפרקים בארכיון
+        </Link>
+      </p>
     </main>
   );
 }
