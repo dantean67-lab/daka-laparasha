@@ -99,7 +99,7 @@ export default function HomePage() {
             {previous.map((episode) => (
               <li key={episode.slug}>
                 <Link href={episodePath(episode.slug)} className="nav-card flex items-center justify-between gap-3">
-                  <span className="text-lg font-bold">{episode.parashaNameWithNikud}</span>
+                  <span className="text-lg font-bold">{episode.parashaNameWithNikud}</span>{" "}
                   <time dateTime={episode.gregorianDate} className="font-ui text-sm text-muted">
                     {episode.hebrewDate}
                   </time>

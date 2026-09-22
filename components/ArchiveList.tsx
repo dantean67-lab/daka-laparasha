@@ -61,14 +61,17 @@ export default function ArchiveList({ groups }: { groups: ArchiveGroupView[] }) 
                   <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
                     <span className="text-lg font-bold">{entry.parashaNameWithNikud}</span>
                     {entry.specialShabbat && (
-                      <span className="font-ui rounded-full border border-gold px-2 py-0.5 text-xs text-muted">
-                        {entry.specialShabbat}
-                      </span>
+                      <>
+                        {" "}
+                        <span className="font-ui rounded-full border border-gold px-2 py-0.5 text-xs text-muted">
+                          {entry.specialShabbat}
+                        </span>
+                      </>
                     )}
-                  </span>
+                  </span>{" "}
                   <span className="mt-1 block text-base">
                     <MixedText>{entry.title}</MixedText>
-                  </span>
+                  </span>{" "}
                   <time dateTime={entry.gregorianDate} className="font-ui mt-1 block text-sm text-muted">
                     {entry.hebrewDate}
                   </time>

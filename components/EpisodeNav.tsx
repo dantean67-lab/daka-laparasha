@@ -20,7 +20,7 @@ export default function EpisodeNav({ previous, next }: { previous: Episode | nul
           <span className="font-ui flex items-center gap-1 text-sm text-muted">
             <Chevron direction="right" />
             הפרק הקודם
-          </span>
+          </span>{" "}
           <span className="text-xl font-bold leading-[1.7]">{previous.parashaNameWithNikud}</span>
         </Link>
       ) : (
@@ -31,7 +31,7 @@ export default function EpisodeNav({ previous, next }: { previous: Episode | nul
           <span className="font-ui flex items-center justify-end gap-1 text-sm text-muted">
             הפרק הבא
             <Chevron direction="left" />
-          </span>
+          </span>{" "}
           <span className="text-xl font-bold leading-[1.7]">{next.parashaNameWithNikud}</span>
         </Link>
       ) : (
