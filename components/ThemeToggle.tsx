@@ -33,6 +33,12 @@ export default function ThemeToggle({ showLabel = false }: { showLabel?: boolean
           : "light";
     const next = current === "dark" ? "light" : "dark";
     root.setAttribute("data-theme", next);
+
+    // Keep the browser toolbar colour (theme-color) in step with the switch, matching the
+    // values in app/layout.tsx.
+    const meta = document.querySelector('meta[name="theme-color"]');
+    meta?.setAttribute("content", next === "dark" ? "#1c1a17" : "#faf8f4");
+
     try {
       localStorage.setItem("theme", next);
     } catch {

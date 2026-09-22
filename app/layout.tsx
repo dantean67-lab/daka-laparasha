@@ -25,15 +25,28 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
+// Matches --bg in globals.css. Kept as plain strings (not CSS vars) because both the
+// server-rendered default below and the inline script need a value before any stylesheet runs.
+const THEME_COLOR_LIGHT = "#faf8f4";
+const THEME_COLOR_DARK = "#1c1a17";
+
+// A single, non-media-scoped tag: its content is kept in sync with the ACTIVE theme (system
+// preference, or the visitor's manual override) by the inline script below and by the toggle
+// button, so the browser's own toolbar colour always matches what is on screen right now.
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#faf8f4" },
-    { media: "(prefers-color-scheme: dark)", color: "#1c1a17" },
-  ],
+  themeColor: THEME_COLOR_LIGHT,
 };
 
-// Runs before the page is painted, so a visitor who chose a theme never sees a flash of the other one.
-const themeScript = `try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t)}}catch(e){}`;
+// Runs before the page is painted, so a visitor who chose a theme never sees a flash of the
+// other one - this sets both <html data-theme> and the theme-color meta tag together.
+const themeScript = `try{
+  var t=localStorage.getItem("theme");
+  var forced=(t==="light"||t==="dark")?t:null;
+  if(forced)document.documentElement.setAttribute("data-theme",forced);
+  var dark=forced?forced==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;
+  var meta=document.querySelector('meta[name="theme-color"]');
+  if(meta)meta.setAttribute("content",dark?"${THEME_COLOR_DARK}":"${THEME_COLOR_LIGHT}");
+}catch(e){}`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -58,9 +58,12 @@ export default async function EpisodePage({ params }: Props) {
           <p className="mt-1 text-[1.5rem] font-medium leading-[1.8]">
             <MixedText>{episode.title}</MixedText>
           </p>
-          <p className="font-ui mt-2 flex flex-wrap items-center gap-x-3 gap-y-2 text-base text-muted">
+          <p className="font-ui mt-2 flex flex-wrap items-center gap-y-2 text-base text-muted">
             {episode.specialShabbat && (
-              <span className="rounded-full border border-gold px-3 py-0.5 text-text">{episode.specialShabbat}</span>
+              <>
+                <span className="rounded-full border border-gold px-3 py-0.5 text-text">{episode.specialShabbat}</span>
+                {" · "}
+              </>
             )}
             <time dateTime={episode.gregorianDate}>{episode.hebrewDate}</time>
           </p>
