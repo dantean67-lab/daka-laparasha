@@ -6,7 +6,7 @@
  * (homepage, archive, prev/next, sitemap) must use getPublishedEpisodes().
  */
 import { CONTENT_DIR, loadEpisodesFromDir } from "./content/load";
-import type { Episode } from "./content/schema";
+import { CHUMASH_NAMES, type Episode } from "./content/schema";
 
 export type { Episode, MoedEpisode, ParashaEpisode, ScriptLine, Source } from "./content/schema";
 
@@ -69,4 +69,41 @@ export function getPreviousEpisodes(current: Episode, limit = 4): Episode[] {
   const published = getPublishedEpisodes();
   const before = published.filter((e) => byDateThenSlug(e, current) < 0);
   return before.slice(-limit).reverse();
+}
+
+/** The one text a source contributes to the archive's search box. */
+export type ArchiveSourceCitation = string;
+
+export type ArchiveGroup = {
+  /** Matches the ids breadcrumbParent() links to: chumash-1 .. chumash-5, or "moadim". */
+  id: string;
+  label: string;
+  episodes: Episode[];
+};
+
+/**
+ * Published episodes grouped for /archive: the five Chumashim in Torah order (parashaOrder,
+ * then gregorianDate within each), then a final "מועדים וזמנים" group of moed episodes
+ * (gregorianDate order). A group with nothing published in it yet is left out entirely -
+ * same "no empty state" rule as the homepage's previous-episodes list.
+ */
+export function getArchiveGroups(): ArchiveGroup[] {
+  const published = getPublishedEpisodes();
+
+  const chumashGroups: ArchiveGroup[] = CHUMASH_NAMES.map((label, i) => {
+    const chumashOrder = i + 1;
+    const episodes = published
+      .filter((e) => e.episodeType === "parasha" && e.chumashOrder === chumashOrder)
+      .sort((a, b) => {
+        if (a.episodeType !== "parasha" || b.episodeType !== "parasha") return 0;
+        return a.parashaOrder - b.parashaOrder || byDateThenSlug(a, b);
+      });
+    return { id: `chumash-${chumashOrder}`, label, episodes };
+  });
+
+  const moedEpisodes = published.filter((e) => e.episodeType === "moed").sort(byDateThenSlug);
+
+  return [...chumashGroups, { id: "moadim", label: "מועדים וזמנים", episodes: moedEpisodes }].filter(
+    (group) => group.episodes.length > 0,
+  );
 }
