@@ -281,6 +281,17 @@
   @page {
     margin: 15mm;
   }
+  /* The screen-only .min-h-screen on the print page's wrapper (so the screen preview never
+     looks cramped when a draft has almost no content) has no place on paper: on some
+     browsers "vh" in a print context resolves against the on-screen viewport height rather
+     than the page being printed, forcing the wrapper taller than the actual content and
+     spilling a second, blank page. Height is driven by content alone when printing. */
+  html,
+  body,
+  .print-page {
+    height: auto !important;
+    min-height: 0 !important;
+  }
   html,
   body {
     background: #ffffff !important;
@@ -288,6 +299,12 @@
   .print-page {
     background-color: #ffffff !important;
     color: #000000 !important;
+  }
+  /* Defensive: nothing Next.js or the browser injects after the visible content (the route
+     announcer used for accessibility, a dev-mode portal) should ever take up page space. */
+  next-route-announcer,
+  nextjs-portal {
+    display: none !important;
   }
   /* Smaller than the on-screen minimum, so a normal episode fits one A4 page; line-height
      never drops below 1.9 for vocalized (nikud) text, so marks never collide with the line
