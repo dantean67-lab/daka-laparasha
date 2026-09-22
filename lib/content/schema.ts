@@ -17,6 +17,7 @@ export const SCRIPT_TYPES = ["opening", "paragraph", "quote", "message", "closin
 export const YOUTUBE_ID_PATTERN = /^[A-Za-z0-9_-]{11}$/;
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*-\d{4}$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+const ISO_8601_DATETIME_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/;
 /** The date written in the templates. A published episode must never still carry it. */
 const TEMPLATE_PLACEHOLDER_DATE = "2000-01-01";
 
@@ -50,6 +51,16 @@ const shared = {
   parashaNameWithNikud: text,
   hebrewDate: text,
   gregorianDate: z.string().regex(DATE_PATTERN, "must look like 2026-09-19 (year-month-day)").refine(isRealDate, "is not a real calendar date"),
+  // Optional: leave out, or use "" when not known yet. Falls back to gregorianDate for
+  // JSON-LD's uploadDate - but that is the Shabbat/occasion date, not the real upload date,
+  // so fill this in as soon as the video is live.
+  youtubeUploadDate: z
+    .string()
+    .refine(
+      (v) => v === "" || ISO_8601_DATETIME_PATTERN.test(v),
+      'must be empty, or a full ISO 8601 date-time like "2026-09-18T07:57:55-07:00"',
+    )
+    .default(""),
   youtubeId: text,
   title: text,
   teaser: text,

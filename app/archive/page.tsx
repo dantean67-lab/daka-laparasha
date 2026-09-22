@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/archive" },
+  openGraph: { title: TITLE, description: DESCRIPTION, url: "/archive" },
+  twitter: { title: TITLE, description: DESCRIPTION },
 };
 
 // Rebuilt at most once an hour, same as the homepage, so a newly published episode appears

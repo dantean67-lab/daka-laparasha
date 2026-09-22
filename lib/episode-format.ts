@@ -19,6 +19,27 @@ export function hasRealVideo(episode: Episode): boolean {
 }
 
 /**
+ * Open Graph's og:image. hqdefault, never maxresdefault: for a Short, maxresdefault is not
+ * guaranteed to exist, hqdefault always does.
+ */
+export function ogImageUrl(youtubeId: string): string {
+  return `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`;
+}
+
+export function youtubeEmbedUrl(youtubeId: string): string {
+  return `https://www.youtube-nocookie.com/embed/${youtubeId}`;
+}
+
+/**
+ * JSON-LD VideoObject's uploadDate: the real day the video went up on YouTube, not the
+ * Shabbat/occasion date. Falls back to gregorianDate only when youtubeUploadDate is not
+ * filled in yet.
+ */
+export function jsonLdUploadDate(episode: Episode): string {
+  return episode.youtubeUploadDate || episode.gregorianDate;
+}
+
+/**
  * <title> text. A weekly portion gets the word for "portion" in front of its name;
  * a holiday/occasion (moed) NEVER does.
  */

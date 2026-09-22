@@ -8,7 +8,16 @@ import MixedText from "@/components/MixedText";
 import ScriptBlock from "@/components/ScriptBlock";
 import VideoFacade from "@/components/VideoFacade";
 import { getAllEpisodes, getEpisodeBySlug, getNeighbors } from "@/lib/episodes";
-import { breadcrumbParent, episodePath, episodeUrl, hasRealVideo, seoTitle } from "@/lib/episode-format";
+import {
+  breadcrumbParent,
+  episodePath,
+  episodeUrl,
+  hasRealVideo,
+  jsonLdUploadDate,
+  ogImageUrl,
+  seoTitle,
+  youtubeEmbedUrl,
+} from "@/lib/episode-format";
 
 // Every episode (drafts too, so they can be previewed) is built ahead of time.
 // Any other address under /parasha/ is a 404.
@@ -24,10 +33,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const episode = getEpisodeBySlug(slug);
   if (!episode) return {};
+  const title = seoTitle(episode);
   return {
-    title: seoTitle(episode),
+    title,
     description: episode.teaser,
     alternates: { canonical: episodePath(episode.slug) },
+    openGraph: {
+      title,
+      description: episode.teaser,
+      url: episodePath(episode.slug),
+      ...(hasRealVideo(episode) ? { images: [ogImageUrl(episode.youtubeId)] } : {}),
+    },
+    twitter: {
+      title,
+      description: episode.teaser,
+      ...(hasRealVideo(episode)
+        ? { card: "summary_large_image", images: [ogImageUrl(episode.youtubeId)] }
+        : { card: "summary" }),
+    },
     // Drafts can be opened by address but must never appear in Google.
     ...(episode.published ? {} : { robots: "noindex" }),
   };
@@ -42,8 +65,28 @@ export default async function EpisodePage({ params }: Props) {
   const { previous, next } = getNeighbors(episode);
   const whatsappHref = `https://wa.me/?text=${encodeURIComponent(`${episode.title}\n${url}`)}`;
 
+  // Real, published video only - a draft's "TODO" id would otherwise describe a video that
+  // does not exist.
+  const videoJsonLd =
+    episode.published && hasRealVideo(episode)
+      ? {
+          "@context": "https://schema.org",
+          "@type": "VideoObject",
+          name: episode.title,
+          description: episode.teaser,
+          thumbnailUrl: [ogImageUrl(episode.youtubeId)],
+          uploadDate: jsonLdUploadDate(episode),
+          embedUrl: youtubeEmbedUrl(episode.youtubeId),
+          inLanguage: "he",
+        }
+      : null;
+
   return (
     <main className="mx-auto max-w-[680px] px-5 py-8">
+      {videoJsonLd && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoJsonLd) }} />
+      )}
+
       {!episode.published && (
         <div role="note" className="font-ui mb-6 rounded-[14px] border border-gold bg-card px-4 py-3 text-base">
           <strong className="text-lg">טיוטה</strong> · העמוד הזה אינו מופיע בדף הבית, בארכיון ובגוגל.

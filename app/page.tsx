@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import CopyLinkButton from "@/components/CopyLinkButton";
 import EpisodeSources from "@/components/EpisodeSources";
@@ -7,6 +8,14 @@ import VideoFacade from "@/components/VideoFacade";
 import { getCurrentEpisode, getPreviousEpisodes } from "@/lib/episodes";
 import { episodePath, episodeUrl, hasRealVideo } from "@/lib/episode-format";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/site";
+
+const TITLE = "דקה לפרשה | דבר תורה קצר על פרשת השבוע";
+
+export const metadata: Metadata = {
+  title: TITLE,
+  openGraph: { title: TITLE, description: SITE_DESCRIPTION, url: "/" },
+  twitter: { title: TITLE, description: SITE_DESCRIPTION },
+};
 
 // Rebuilt at most once an hour, so the current episode (the one with the earliest
 // gregorianDate that is still today or later, Asia/Jerusalem) changes without a new deploy.

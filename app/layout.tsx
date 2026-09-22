@@ -18,11 +18,25 @@ const heebo = Heebo({
   display: "swap",
 });
 
+// Site-wide defaults. Pages that need something more specific (the homepage's title, an
+// episode's per-video Open Graph image, the archive page's description) override these.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: SITE_NAME,
   description: SITE_DESCRIPTION,
   alternates: { canonical: "/" },
+  openGraph: {
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    locale: "he_IL",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+  },
 };
 
 // Matches --bg in globals.css. Kept as plain strings (not CSS vars) because both the
